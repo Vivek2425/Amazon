@@ -60,7 +60,11 @@
   <main>
 
     <section class="container album py-5 bg-light">
-      <form action="/auth" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="showalert">
+          <strong>Wrong Credentials...</strong> Please enter valid email id and password.
+           </div>
+       
+      <form method="POST" id="myfrm">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email address</label>
           <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
@@ -68,42 +72,79 @@
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <input type="password" class="form-control" id="exampleInputPassword1" name="password">
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="login">Submit</button>
       </form>
     </section>
 
 
   </main>
+  <script src="jquery.js"></script>
   <script>
-    document.querySelector('button')
-        .addEventListener('click', (e) => {
-            e.preventDefault();
-            const username = document
-                .querySelector('#user').value;
-
-            const password = document
-                .querySelector('#pass').value;
+    $(document).ready(function(){
+      $("#myfrm").on("submit",async function(e){
+        e.preventDefault();
+        // var formData = new FormData(this.form);
+        // alert();
+        const formData = $(this).serialize();
+        console.log(formData)
+        $.ajax({
+        url: "/auth",
+        type: "POST",
+        data: formData,
+        success:async function(response) {
+          // alert(await response);
+          console.log(await response)
+          if(response!==null && response!=="null"){
+            location.href="/index.html";
+          }else{
+            $("#showalert").removeClass("d-none");
+            // alert("Login unsuccessfull..!!")
+          }
+        }
+      });
                  
-            fetch('/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email
-                }),
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((data) => console.log(data));
-        });
+            // var response = await fetch('http://localhost:8000/auth', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //       formData
+            //     }),
+            // })
+            // console.log(await response);
+            
+      })
+    })
+    // document.querySelector('button')
+    //     .addEventListener('click', (e) => {
+        //     e.preventDefault();
+        //     const username = document
+        //         .querySelector('#user').value;
+
+        //     const password = document
+        //         .querySelector('#pass').value;
+                 
+        //     fetch('/auth', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             email
+        //         }),
+        //     })
+        //         .then((res) => {
+        //             return res.json();
+        //         })
+        //         .then((data) => console.log(data));
+        // });
 </script>
 
 </body>
