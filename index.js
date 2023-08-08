@@ -5,7 +5,7 @@ app.use(express.json());
 const bodyParser = require('body-parser');
 app.use(express.static('public'))
 const { MongoClient } = require('mongodb');
-
+app.set("view engine","ejs")
 const client = new MongoClient('mongodb://localhost:27017');
 // async function connectToMongo() {
 //     try {
@@ -61,11 +61,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/",(req,res)=>{
-    res.send("Hello world");
+    // res.send("Hello world");
+    res.render("index")
 })
 app.get("/login",(req,res)=>{
-    const filePath = path.join(__dirname, 'public/login.html');
-    res.sendFile(filePath);
+    // const filePath = path.join(__dirname, 'public/login.html');
+
+    // res.sendFile(filePath);
+    res.render("login")
+  })
+  app.get("/register",(req,res)=>{
+    // const filePath = path.join(__dirname, 'public/register.html');
+    res.render("register")
+    // res.sendFile(filePath);
+})
+  app.get("/products",(req,res)=>{
+    // const filePath = path.join(__dirname, 'public/register.html');
+    res.render("products")
+    // res.sendFile(filePath);
 })
 app.post('/auth',async (req, res) => {
     const data = req.body;
@@ -80,6 +93,17 @@ app.post('/auth',async (req, res) => {
     //     res.end("not valid")
     // }
     
+  });
+app.post('/register',async (req, res) => {
+    const data = req.body;
+    const id = commonFunc('ecommerce','products',data,'insert');
+    console.log(id)
+    if(id!=="" && id!==null)
+    {
+        res.end(JSON.stringify(id));
+    }else{
+        res.end("not valid")
+    }
   });
 app.listen(8000,()=>{
     console.log("http://localhost:8000")

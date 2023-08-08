@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <!-- place navbar here -->
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
+                        viewBox="0 0 24 24">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                    </svg>
+                    <strong>Register</strong>
+                </a>
+                <form class=" ">
+                    <a class="btn btn-primary" type="submit" href="/">Home</a>
+                    <a class="btn btn-primary" href="/login"> Login</a>
+                  </form>
+            </div>
+        </div>
+    </header>
+    <main >
+        <section class="container album py-5 bg-light">
+            <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="showalert">
+              <strong>Something Wrong ...</strong>
+               </div>
+        <form class="row g-3" enctype="multipart/form-data" method="POST" id="myfrm">
+            <div class="col-4">
+                <label for="inputEmail4" class="form-label">User First Name</label>
+                <input type="text" class="form-control" id="inputfname" name="fname">
+            </div>
+            <div class="col-4">
+                <label for="inputEmail4" class="form-label">User Middle Name</label>
+                <input type="text" class="form-control" id="inputfname" name="mname">
+            </div>
+            <div class="col-4">
+                <label for="inputEmail4" class="form-label">User Last Name</label>
+                <input type="text" class="form-control" id="inputfname" name="lname">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="email">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" name="password">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
+            </div>
+            <div class="col-12">
+                <label for="formFile" class="form-label">Upload profile picture</label>
+                <input class="form-control" type="file" id="formFile" name="profile">
+            </div>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" name="city">
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">State</label>
+                <input type="text" class="form-control" id="inputCity" name="state">
+            </div>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Zip</label>
+                <input type="text" class="form-control" id="inputZip" name="zip">
+            </div>
+           
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" id="register">Register</button>
+            </div>
+        </form>
+        </section>
+    </main>
+    <footer>
+        <!-- place footer here -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+        <!-- <script src="jquery.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                // $("#register").on("click",function(){
+                //     alert("sdkjbckj");
+                // })
+
+              $("#myfrm").on("submit",async function(e){
+                e.preventDefault();
+
+                const formData = $(this).serialize();
+                console.log(formData)
+                console.log(formData)
+                $.ajax({
+                url: "/register",
+                type: "POST",
+                data: formData,
+                success:async function(response) {
+                  if(response!==null && response!=="null"){
+                    location.href="/";
+                  }else{
+                    $("#showalert").removeClass("d-none");
+                    // alert("Login unsuccessfull..!!")
+                  }
+                }
+              });
+                         
+                 
+                    
+              })
+
+            
+            })
+           
+        </script>
+</body>
+
+</html>
