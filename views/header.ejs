@@ -16,8 +16,12 @@
         
         </ul>
         <form class=" ">
-          <a class="btn btn-primary" href="/login"> Login</a>
-          <a class="btn btn-primary" type="submit" href="/register">Register</a>
+          <% if(username){ %>
+            <a class="btn btn-primary" href="/logout"> Logout</a>
+          <% }else{ %>
+            <a class="btn btn-primary" href="/login"> Login</a>
+            <a class="btn btn-primary" type="submit" href="/register">Register</a>
+          <% } %>
         </form>
       </div>
     </div>
