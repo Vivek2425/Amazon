@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(express.static('public'))
 const { MongoClient } = require('mongodb');
 app.set("view engine","ejs")
-const client = new MongoClient('mongodb://localhost:27017');
+const client = new MongoClient('mongodb+srv://vivek:Vivek%40123@cluster1.7a1bjrg.mongodb.net/');
 // async function connectToMongo() {
 //     try {
 //       await client.connect();
